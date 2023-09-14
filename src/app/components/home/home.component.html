@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="container">
+    <h1 class="form-title">Nusa</h1>
+
+    <form [formGroup]="form" class="form-login">
+      <mat-form-field class="form-input">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+
+        <mat-error *ngIf="form.get('cpf')?.invalid">
+          {{ getErrorMessage("cpf") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha" />
+
+        <mat-error *ngIf="form.get('senha')?.invalid">
+          {{ getErrorMessage("senha") }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <button
+      mat-flat-button
+      class="form-button"
+      color="primary"
+      (click)="onSubmit()"
+    >
+      Entrar
+    </button>
+
+    <a
+      routerLink="/signup"
+      mat-flat-button
+      color="primary"
+      class="form-signup-link"
+    >
+      Criar conta
+    </a>
+  </div>
+</div>

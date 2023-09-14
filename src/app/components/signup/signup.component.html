@@ -1,0 +1,83 @@
+<div class="wrapper">
+  <div class="container">
+    <h1 class="form-title">Nusa</h1>
+
+    <form [formGroup]="form" class="form-login">
+      <mat-form-field class="form-input">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+
+        <mat-error *ngIf="form.get('nome')?.invalid">
+          {{ getErrorMessage("nome") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+
+        <mat-error *ngIf="form.get('cpf')?.invalid">
+          {{ getErrorMessage("cpf") }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- TODO
+      Alterar input do datepicker para o formato dd/MM/yyyy -->
+      <mat-form-field>
+        <mat-label>Data de Nascimento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="data_nascimento"
+        />
+
+        <mat-error *ngIf="form.get('data_nascimento')?.invalid">
+          {{ getErrorMessage("data_nascimento") }}
+        </mat-error>
+
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-select">
+        <mat-label>Tipo do usuário</mat-label>
+        <mat-select [(value)]="selectedUser">
+          <mat-option value="paciente">Paciente</mat-option>
+          <mat-option value="medico">Médico</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha" />
+
+        <mat-error *ngIf="form.get('senha')?.invalid">
+          {{ getErrorMessage("senha") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Confirmar Senha</mat-label>
+        <input matInput type="password" formControlName="confirma_senha" />
+
+        <mat-error *ngIf="form.get('confirma_senha')?.invalid">
+          {{ getErrorMessage("confirma_senha") }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <button
+      mat-flat-button
+      class="form-button"
+      color="primary"
+      (click)="onSubmit()"
+    >
+      Cadastrar
+    </button>
+
+    <a routerLink="/" mat-flat-button color="primary" class="form-signup-link">
+      Voltar
+    </a>
+  </div>
+</div>
