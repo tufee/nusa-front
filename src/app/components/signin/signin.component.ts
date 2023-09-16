@@ -9,9 +9,9 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-home',
-  styleUrls: ['./home.component.css'],
-  templateUrl: './home.component.html',
+  selector: 'app-signin',
+  styleUrls: ['./signin.component.css'],
+  templateUrl: './signin.component.html',
   standalone: true,
   imports: [
     FormsModule,
@@ -24,8 +24,7 @@ import { UserService } from 'src/app/services/user.service';
   ],
 })
 
-export class HomeComponent {
-  selectedUser = 'paciente';
+export class SigninComponent {
 
   form: FormGroup;
   successMessage?: string;
