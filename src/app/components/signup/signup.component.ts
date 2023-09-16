@@ -37,7 +37,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class SignupComponent implements OnInit {
-  selectedUser = 'paciente';
 
   form: FormGroup;
   successMessage?: string;
@@ -50,11 +49,21 @@ export class SignupComponent implements OnInit {
   ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
-      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      cpf: ['', [
+        Validators.required,
+        Validators.minLength(11),
+        Validators.maxLength(11)
+      ]],
       data_nascimento: ['', Validators.required],
       tipo: ['', Validators.required],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirma_senha: ['', [Validators.required, Validators.minLength(6)]],
+      senha: ['', [
+        Validators.required,
+        Validators.minLength(6)
+      ]],
+      confirma_senha: ['', [
+        Validators.required,
+        Validators.minLength(6)]
+      ],
     });
   }
 
@@ -86,17 +95,26 @@ export class SignupComponent implements OnInit {
     }
 
     if (field?.hasError('minlength')) {
-      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 6;
+      const requiredLength = field.errors
+        ? field.errors['minlength']['requiredLength']
+        : 6;
+
       return `Campo deve ter no mínimo ${requiredLength} caracteres`;
     }
 
     if (field?.hasError('minlength')) {
-      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 11;
+      const requiredLength = field.errors
+        ? field.errors['minlength']['requiredLength']
+        : 11;
+
       return `Campo deve ter no mínimo ${requiredLength} caracteres`;
     }
 
     if (field?.hasError('maxlength')) {
-      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 11;
+      const requiredLength = field.errors
+        ? field.errors['maxlength']['requiredLength']
+        : 11;
+
       return `Campo deve ter no máximo ${requiredLength} caracteres`;
     }
 

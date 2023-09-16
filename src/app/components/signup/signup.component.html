@@ -25,11 +25,7 @@
       Alterar input do datepicker para o formato dd/MM/yyyy -->
       <mat-form-field>
         <mat-label>Data de Nascimento</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="data_nascimento"
-        />
+        <input matInput [matDatepicker]="picker" formControlName="data_nascimento" />
 
         <mat-error *ngIf="form.get('data_nascimento')?.invalid">
           {{ getErrorMessage("data_nascimento") }}
@@ -42,10 +38,14 @@
 
       <mat-form-field class="form-select">
         <mat-label>Tipo do usuário</mat-label>
-        <mat-select [(value)]="selectedUser">
+        <mat-select formControlName="tipo">
           <mat-option value="paciente">Paciente</mat-option>
           <mat-option value="medico">Médico</mat-option>
         </mat-select>
+
+        <mat-error *ngIf="form.get('tipo')?.invalid">
+          {{ getErrorMessage("tipo") }}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-input">
@@ -67,12 +67,7 @@
       </mat-form-field>
     </form>
 
-    <button
-      mat-flat-button
-      class="form-button"
-      color="primary"
-      (click)="onSubmit()"
-    >
+    <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
       Cadastrar
     </button>
 
