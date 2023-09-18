@@ -8,7 +8,7 @@
         <input matInput formControlName="nome" />
 
         <mat-error *ngIf="form.get('nome')?.invalid">
-          {{ getErrorMessage("nome") }}
+          {{ formUtils.getErrorMessage(form, "nome") }}
         </mat-error>
       </mat-form-field>
 
@@ -17,18 +17,22 @@
         <input matInput formControlName="cpf" />
 
         <mat-error *ngIf="form.get('cpf')?.invalid">
-          {{ getErrorMessage("cpf") }}
+          {{ formUtils.getErrorMessage(form, "cpf") }}
         </mat-error>
       </mat-form-field>
 
       <!-- TODO
-      Alterar input do datepicker para o formato dd/MM/yyyy -->
+      adicionar mascara para cpf -->
       <mat-form-field>
         <mat-label>Data de Nascimento</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="data_nascimento" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="data_nascimento"
+        />
 
         <mat-error *ngIf="form.get('data_nascimento')?.invalid">
-          {{ getErrorMessage("data_nascimento") }}
+          {{ formUtils.getErrorMessage(form, "data_nascimento") }}
         </mat-error>
 
         <mat-datepicker-toggle matIconSuffix [for]="picker">
@@ -36,24 +40,12 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field class="form-select">
-        <mat-label>Tipo do usuário</mat-label>
-        <mat-select formControlName="tipo">
-          <mat-option value="paciente">Paciente</mat-option>
-          <mat-option value="medico">Médico</mat-option>
-        </mat-select>
-
-        <mat-error *ngIf="form.get('tipo')?.invalid">
-          {{ getErrorMessage("tipo") }}
-        </mat-error>
-      </mat-form-field>
-
       <mat-form-field class="form-input">
         <mat-label>Senha</mat-label>
         <input matInput type="password" formControlName="senha" />
 
         <mat-error *ngIf="form.get('senha')?.invalid">
-          {{ getErrorMessage("senha") }}
+          {{ formUtils.getErrorMessage(form, "senha") }}
         </mat-error>
       </mat-form-field>
 
@@ -62,12 +54,17 @@
         <input matInput type="password" formControlName="confirma_senha" />
 
         <mat-error *ngIf="form.get('confirma_senha')?.invalid">
-          {{ getErrorMessage("confirma_senha") }}
+          {{ formUtils.getErrorMessage(form, "confirma_senha") }}
         </mat-error>
       </mat-form-field>
     </form>
 
-    <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
+    <button
+      mat-flat-button
+      class="form-button"
+      color="primary"
+      (click)="onSubmit()"
+    >
       Cadastrar
     </button>
 

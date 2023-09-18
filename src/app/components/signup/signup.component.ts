@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -13,9 +13,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
+import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
 
 @Component({
   selector: 'app-signup',
@@ -36,16 +37,15 @@ import { UserService } from 'src/app/services/user.service';
   ]
 })
 
-export class SignupComponent implements OnInit {
-
+export class SignupComponent {
   form: FormGroup;
-  successMessage?: string;
-  errorMessage?: string;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: UserService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private router: Router,
+    public formUtils: FormUtilsService
   ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -55,7 +55,6 @@ export class SignupComponent implements OnInit {
         Validators.maxLength(11)
       ]],
       data_nascimento: ['', Validators.required],
-      tipo: ['', Validators.required],
       senha: ['', [
         Validators.required,
         Validators.minLength(6)
@@ -67,57 +66,21 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
-
   onSubmit() {
-    // TODO
-    // alterer cor do popup de erro e sucesso
-    console.log(this.form.value);
-    this.service.savePaciente(this.form.value).subscribe(({
-      error: () => {
-        // TODO
-        // adicionar erros de validação que vem do backend
-        this.snackbar.error('Erro ao Cadastrar');
-      },
-      complete: () => {
-        this.snackbar.success('Cadastrado com sucesso');
-      },
-    }));
-  }
-
-  getErrorMessage(fieldName: string) {
-    const field = this.form.get(fieldName);
-
-    if (field?.hasError('required')) {
-      return 'Campo obrigatório';
+    if (this.form.valid) {
+      this.service.saveDoctor(this.form.value).subscribe(({
+        error: (err) => {
+          this.snackbar.error(err.error);
+        },
+        complete: () => {
+          this.snackbar.success('Cadastro realizado com sucesso');
+        },
+        next: () => {
+          this.router.navigate(['/home']);
+        },
+      }));
+    } else {
+      this.formUtils.validateAllFormFields(this.form);
     }
-
-    if (field?.hasError('minlength')) {
-      const requiredLength = field.errors
-        ? field.errors['minlength']['requiredLength']
-        : 6;
-
-      return `Campo deve ter no mínimo ${requiredLength} caracteres`;
-    }
-
-    if (field?.hasError('minlength')) {
-      const requiredLength = field.errors
-        ? field.errors['minlength']['requiredLength']
-        : 11;
-
-      return `Campo deve ter no mínimo ${requiredLength} caracteres`;
-    }
-
-    if (field?.hasError('maxlength')) {
-      const requiredLength = field.errors
-        ? field.errors['maxlength']['requiredLength']
-        : 11;
-
-      return `Campo deve ter no máximo ${requiredLength} caracteres`;
-    }
-
-    return 'Campo inválido'
   }
 }
