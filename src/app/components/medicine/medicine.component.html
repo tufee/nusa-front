@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <h1 class="form-title">Lista de Medicamentos</h1>
+
+  <div class="form-container">
+    <form [formGroup]="form" class="form-patient">
+      <mat-form-field class="form-input">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+
+        <mat-error *ngIf="form.get('nome')?.invalid">
+          {{ formUtils.getErrorMessage(form, "nome") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Categoria</mat-label>
+        <input matInput formControlName="categoria" />
+
+        <mat-error *ngIf="form.get('categoria')?.invalid">
+          {{ formUtils.getErrorMessage(form, "categoria") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Código Anvisa</mat-label>
+        <input matInput formControlName="codigo_anvisa" />
+
+        <mat-error *ngIf="form.get('codigo_anvisa')?.invalid">
+          {{ formUtils.getErrorMessage(form, "cogido_anvisa") }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="button-container">
+      <button
+        mat-flat-button
+        class="form-button"
+        color="primary"
+        (click)="onSubmit()"
+      >
+        Cadastrar Medicamento
+      </button>
+
+      <a routerLink="/home" mat-flat-button color="primary" class="form-button">
+        Voltar
+      </a>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-medicine-table [medicineData]="medicine"></app-medicine-table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<table mat-table [dataSource]="medicineData" class="mat-elevation-z8">
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef>Nome</th>
+    <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="categoria">
+    <th mat-header-cell *matHeaderCellDef>Categoria</th>
+    <td mat-cell *matCellDef="let element">{{ element.categoria }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="codigo_anvisa">
+    <th mat-header-cell *matHeaderCellDef>Código Anvisa</th>
+    <td mat-cell *matCellDef="let element">{{ element.codigo_anvisa }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
