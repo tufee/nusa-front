@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <h1 class="form-title">Lista de Pacientes</h1>
+
+  <div class="form-container">
+    <form [formGroup]="form" class="form-patient">
+      <mat-form-field class="form-input">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+
+        <mat-error *ngIf="form.get('nome')?.invalid">
+          {{ formUtils.getErrorMessage(form, "nome") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+
+        <mat-error *ngIf="form.get('cpf')?.invalid">
+          {{ formUtils.getErrorMessage(form, "cpf") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Data de Nascimento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="data_nascimento"
+        />
+
+        <mat-error *ngIf="form.get('data_nascimento')?.invalid">
+          {{ formUtils.getErrorMessage(form, "data_nascimento") }}
+        </mat-error>
+
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+
+    <div class="button-container">
+      <button
+        mat-flat-button
+        class="form-button"
+        color="primary"
+        (click)="onSubmit()"
+      >
+        Cadastrar Paciente
+      </button>
+
+      <a routerLink="/home" mat-flat-button color="primary" class="form-button">
+        Voltar
+      </a>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-table [patientData]="patient"></app-table>
+  </div>
+</div>
