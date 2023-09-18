@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <h1 class="form-title">Lista de Receitas</h1>
+
+  <div class="form-container">
+    <form [formGroup]="form" class="form-patient">
+      <mat-form-field class="form-input">
+        <mat-label>Paciente</mat-label>
+        <input matInput formControlName="paciente_id" />
+
+        <mat-error *ngIf="form.get('paciente_id')?.invalid">
+          {{ formUtils.getErrorMessage(form, "paciente_id") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Medicamento</mat-label>
+        <input matInput formControlName="medicamento_id" />
+
+        <mat-error *ngIf="form.get('medicamento_id')?.invalid">
+          {{ formUtils.getErrorMessage(form, "medicamento_id") }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Data da Prescrição</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="data_prescricao"
+        />
+
+        <mat-error *ngIf="form.get('data_prescricao')?.invalid">
+          {{ formUtils.getErrorMessage(form, "data_prescricao") }}
+        </mat-error>
+
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+
+    <div class="button-container">
+      <button
+        mat-flat-button
+        class="form-button"
+        color="primary"
+        (click)="onSubmit()"
+      >
+        Cadastrar Receita
+      </button>
+
+      <a routerLink="/home" mat-flat-button color="primary" class="form-button">
+        Voltar
+      </a>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-recipe-table></app-recipe-table>
+  </div>
+</div>
