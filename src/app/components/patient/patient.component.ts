@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { Patient } from 'src/app/models/patient';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
-import { TableComponent } from 'src/app/shared/components/table/table.component';
+import { PatientTableComponent } from 'src/app/shared/components/patient-table/patient-table.component';
 import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
 
 @Component({
@@ -32,7 +32,7 @@ import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
     RouterModule,
     ReactiveFormsModule,
     NgIf,
-    TableComponent,
+    PatientTableComponent,
     MatDatepickerModule,
     MatNativeDateModule
   ],

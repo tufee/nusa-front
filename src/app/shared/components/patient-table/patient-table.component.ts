@@ -4,14 +4,14 @@ import { MatTableModule } from '@angular/material/table';
 import { Patient } from 'src/app/models/patient';
 
 @Component({
-  selector: 'app-table',
-  styleUrls: ['./table.component.css'],
-  templateUrl: './table.component.html',
+  selector: 'app-patient-table',
+  styleUrls: ['./patient-table.component.css'],
+  templateUrl: './patient-table.component.html',
   standalone: true,
   imports: [MatTableModule, DatePipe],
 })
 
-export class TableComponent {
+export class PatientTableComponent {
   @Input() patientData: Patient[];
 
   constructor() {
