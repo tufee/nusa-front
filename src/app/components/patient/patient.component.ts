@@ -11,13 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
-import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
 import { PatientTableComponent } from 'src/app/shared/components/patient-table/patient-table.component';
+import { CpfFormatDirective } from 'src/app/shared/directives/cpf-format.directive';
 import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient',
@@ -34,50 +37,74 @@ import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
     NgIf,
     PatientTableComponent,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule,
+    CpfFormatDirective
   ],
 })
 
 export class PatientComponent {
   form: FormGroup;
+  searchForm: FormGroup;
   patient: Patient[] = []
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: UserService,
-    private snackbar: SnackbarService,
-    public formUtils: FormUtilsService
+    public formUtils: FormUtilsService,
+    public cpfFormat: CpfFormatDirective,
   ) {
     this.form = this.formBuilder.group({
-      nome: ['', [Validators.required]],
+      nome: ['', Validators.required],
       cpf: ['', [
         Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11)]
-      ],
-      data_nascimento: ['', [Validators.required]],
+        this.cpfFormat.cpfValidator
+      ]],
+      data_nascimento: ['', Validators.required],
+    });
+
+    this.searchForm = this.formBuilder.group({
+      search: [''],
     });
   }
 
   ngOnInit(): void {
-    this.service.getAllPatient().subscribe(({
-      next: (value) => {
-        this.patient = value
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    }));
+    this.searchForm.get('search')?.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap((value: string) => this.service.getPatients(value)),
+    )
+      .subscribe(({
+        next: (value) => {
+          this.patient = value;
+        },
+      }))
   }
 
   onSubmit() {
     if (this.form.valid) {
       this.service.savePatient(this.form.value).subscribe(({
         error: (err) => {
-          this.snackbar.error(err.error);
+          if (err.error === 'Paciente já cadastrado') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Erro!',
+              text: 'CPF já cadastrado',
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Erro!',
+              text: 'Erro ao cadastrar paciente, verifique os dados enviados',
+            })
+          }
         },
         complete: () => {
-          this.snackbar.success('Paciente Cadastrado com sucesso');
+          Swal.fire(
+            'Sucesso!',
+            'Cadastro realizado com sucesso',
+            'success'
+          )
         },
         next: () => {
           this.ngOnInit()
@@ -88,3 +115,5 @@ export class PatientComponent {
     }
   }
 }
+
+

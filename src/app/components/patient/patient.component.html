@@ -14,7 +14,7 @@
 
       <mat-form-field class="form-input">
         <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" />
+        <input matInput formControlName="cpf" appCpfFormat />
 
         <mat-error *ngIf="form.get('cpf')?.invalid">
           {{ formUtils.getErrorMessage(form, "cpf") }}
@@ -23,11 +23,7 @@
 
       <mat-form-field class="form-input">
         <mat-label>Data de Nascimento</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="data_nascimento"
-        />
+        <input matInput [matDatepicker]="picker" formControlName="data_nascimento" />
 
         <mat-error *ngIf="form.get('data_nascimento')?.invalid">
           {{ formUtils.getErrorMessage(form, "data_nascimento") }}
@@ -40,12 +36,7 @@
     </form>
 
     <div class="button-container">
-      <button
-        mat-flat-button
-        class="form-button"
-        color="primary"
-        (click)="onSubmit()"
-      >
+      <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
         Cadastrar Paciente
       </button>
 
@@ -53,6 +44,13 @@
         Voltar
       </a>
     </div>
+
+    <form [formGroup]="searchForm" class="searchForm">
+      <mat-form-field class="form-input-search">
+        <mat-label>Buscar Pacientes</mat-label>
+        <input matInput formControlName="search" />
+      </mat-form-field>
+    </form>
   </div>
 
   <div class="table-container">

@@ -43,6 +43,14 @@
   height: 50px;
 }
 
+.searchForm {
+  margin-top: 30px;
+}
+
+.form-input-search {
+  width: 400px;
+}
+
 .table-container {
   width: 100%;
 }
