@@ -8,7 +8,7 @@
 }
 
 .background {
-  background-image: url('/assets/medical_logo.png');
+  background-image: url('/assets/signin_logo.png');
   background-size: contain;
   background-repeat: no-repeat;
   max-width: 600px;
