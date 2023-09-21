@@ -32,12 +32,7 @@
     </form>
 
     <div class="button-container">
-      <button
-        mat-flat-button
-        class="form-button"
-        color="primary"
-        (click)="onSubmit()"
-      >
+      <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
         Cadastrar Medicamento
       </button>
 
@@ -45,6 +40,13 @@
         Voltar
       </a>
     </div>
+
+    <form [formGroup]="searchForm" class="searchForm">
+      <mat-form-field class="form-input-search">
+        <mat-label>Buscar Pacientes</mat-label>
+        <input matInput formControlName="search" />
+      </mat-form-field>
+    </form>
   </div>
 
   <div class="table-container">
