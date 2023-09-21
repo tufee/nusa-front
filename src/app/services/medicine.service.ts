@@ -18,4 +18,8 @@ export class MedicineService {
   getAllMedicine() {
     return this.httpClient.get<Medicine[]>(`${this.API}/medicamento`);
   }
+
+  getMedicines(name: string) {
+    return this.httpClient.get<Medicine[]>(`${this.API}/medicamento/search?name=${name}`);
+  }
 }
