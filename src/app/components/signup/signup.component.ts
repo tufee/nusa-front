@@ -14,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
-import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
 import { CpfFormatDirective } from 'src/app/shared/directives/cpf-format.directive';
 import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
@@ -46,7 +45,6 @@ export class SignupComponent {
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: UserService,
-    private snackbar: SnackbarService,
     private router: Router,
     public formUtils: FormUtilsService,
     public cpfFormat: CpfFormatDirective,
