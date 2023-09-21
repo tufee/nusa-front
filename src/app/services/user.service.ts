@@ -23,4 +23,9 @@ export class UserService {
   saveDoctor(doctor: Doctor) {
     return this.httpClient.post<Doctor>(`${this.API}/create/medico`, doctor);
   }
+
+  getPatients(name: string) {
+    return this.httpClient.get<Patient[]>(`${this.API}/paciente/search?name=${name}`);
+  }
 }
+
