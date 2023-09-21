@@ -43,5 +43,4 @@ export class AuthenticateUserService {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.setItem(TOKEN_KEY, token.toString());
   }
-
 }
