@@ -12,8 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticateUserService } from 'src/app/services/authenticate-user.service';
-import { SnackbarService } from 'src/app/services/snackbar.service';
+import { CpfFormatDirective } from 'src/app/shared/directives/cpf-format.directive';
 import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signin',
@@ -27,7 +28,8 @@ import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
     MatButtonModule,
     RouterModule,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    CpfFormatDirective
   ],
 })
 
@@ -37,16 +39,15 @@ export class SigninComponent {
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private authService: AuthenticateUserService,
-    private snackbar: SnackbarService,
     private router: Router,
     public formUtils: FormUtilsService,
+    public cpfFormat: CpfFormatDirective,
 
   ) {
     this.form = this.formBuilder.group({
       cpf: ['', [
         Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11)]
+        this.cpfFormat.cpfValidator]
       ],
       senha: ['', [Validators.required]],
     });
@@ -59,11 +60,12 @@ export class SigninComponent {
           this.authService.saveToken(value.token);
           this.router.navigate(['/home']);
         },
-        complete: () => {
-          this.snackbar.success('Login realizado com sucesso');
-        },
-        error: (err) => {
-          this.snackbar.error(err.error);
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: "Verifique usuário e/ou senha.",
+          })
         }
       }));
     } else {

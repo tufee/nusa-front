@@ -1,11 +1,14 @@
 <div class="wrapper">
+
+  <div class="background"></div>
+
   <div class="container">
     <h1 class="form-title">Nusa</h1>
 
     <form [formGroup]="form" class="form-login">
       <mat-form-field class="form-input">
         <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" />
+        <input matInput formControlName="cpf" appCpfFormat />
 
         <mat-error *ngIf="form.get('cpf')?.invalid">
           {{ formUtils.getErrorMessage(form, "cpf") }}
@@ -22,21 +25,11 @@
       </mat-form-field>
     </form>
 
-    <button
-      mat-flat-button
-      class="form-button"
-      color="primary"
-      (click)="onSubmit()"
-    >
+    <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
       Entrar
     </button>
 
-    <a
-      routerLink="/signup"
-      mat-flat-button
-      color="primary"
-      class="form-signup-link"
-    >
+    <a routerLink="/signup" mat-flat-button color="primary" class="form-signup-link">
       Criar conta
     </a>
   </div>

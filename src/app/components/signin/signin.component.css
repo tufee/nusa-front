@@ -7,15 +7,26 @@
   align-items: center;
 }
 
+.background {
+  background-image: url('/assets/medical_logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: 600px;
+  width: 100%;
+  height: 600px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .form-title {
   font-size: 30px;
   color: #3f51b5;
   text-align: center;
-}
-
-.container {
-  max-width: 600px;
-  width: 100%;
 }
 
 .form-login {
