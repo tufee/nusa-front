@@ -16,7 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
+import { CpfFormatDirective } from 'src/app/shared/directives/cpf-format.directive';
 import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -33,7 +35,8 @@ import { FormUtilsService } from 'src/app/shared/forms/form-utils.service';
     MatNativeDateModule,
     ReactiveFormsModule,
     NgIf,
-    MatSelectModule
+    MatSelectModule,
+    CpfFormatDirective
   ]
 })
 
@@ -45,15 +48,15 @@ export class SignupComponent {
     private service: UserService,
     private snackbar: SnackbarService,
     private router: Router,
-    public formUtils: FormUtilsService
+    public formUtils: FormUtilsService,
+    public cpfFormat: CpfFormatDirective,
   ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       cpf: ['', [
         Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11)
-      ]],
+        this.cpfFormat.cpfValidator]
+      ],
       data_nascimento: ['', Validators.required],
       senha: ['', [
         Validators.required,
@@ -69,11 +72,19 @@ export class SignupComponent {
   onSubmit() {
     if (this.form.valid) {
       this.service.saveDoctor(this.form.value).subscribe(({
-        error: (err) => {
-          this.snackbar.error(err.error);
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Erro ao cadastrar médico, verifique os dados enviados',
+          })
         },
         complete: () => {
-          this.snackbar.success('Cadastro realizado com sucesso');
+          Swal.fire(
+            'Sucesso!',
+            'Cadastro realizado com sucesso',
+            'success'
+          )
         },
         next: () => {
           this.router.navigate(['/home']);

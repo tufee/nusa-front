@@ -1,4 +1,5 @@
 <div class="wrapper">
+  <div class="background"></div>
   <div class="container">
     <h1 class="form-title">Nusa</h1>
 
@@ -14,22 +15,16 @@
 
       <mat-form-field class="form-input">
         <mat-label>CPF</mat-label>
-        <input matInput formControlName="cpf" />
+        <input matInput formControlName="cpf" appCpfFormat />
 
         <mat-error *ngIf="form.get('cpf')?.invalid">
           {{ formUtils.getErrorMessage(form, "cpf") }}
         </mat-error>
       </mat-form-field>
 
-      <!-- TODO
-      adicionar mascara para cpf -->
       <mat-form-field>
         <mat-label>Data de Nascimento</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="data_nascimento"
-        />
+        <input matInput [matDatepicker]="picker" formControlName="data_nascimento" />
 
         <mat-error *ngIf="form.get('data_nascimento')?.invalid">
           {{ formUtils.getErrorMessage(form, "data_nascimento") }}
@@ -59,12 +54,7 @@
       </mat-form-field>
     </form>
 
-    <button
-      mat-flat-button
-      class="form-button"
-      color="primary"
-      (click)="onSubmit()"
-    >
+    <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
       Cadastrar
     </button>
 

@@ -7,10 +7,13 @@
   align-items: center;
 }
 
-.form-title {
-  font-size: 30px;
-  color: #3f51b5;
-  text-align: center;
+.background {
+  background-image: url('/assets/signup_logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: 600px;
+  width: 100%;
+  height: 600px;
 }
 
 .container {
@@ -18,16 +21,22 @@
   width: 100%;
 }
 
+.form-title {
+  font-size: 30px;
+  color: #3f51b5;
+  text-align: center;
+}
+
 .form-login {
   min-width: 150px;
   width: 100%;
 }
 
-.form-select {
+.form-input {
   width: 100%;
 }
 
-.form-input {
+.form-select {
   width: 100%;
 }
 
