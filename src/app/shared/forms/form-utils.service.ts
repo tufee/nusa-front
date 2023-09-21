@@ -35,13 +35,9 @@ export class FormUtilsService {
     }
 
     if (field?.hasError('minlength')) {
-      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 11;
-      return `Campo deve ter no mínimo ${requiredLength} caracteres`;
-    }
-
-    if (field?.hasError('maxlength')) {
-      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 11;
-      return `Campo deve ter no máximo ${requiredLength} caracteres`;
+      const requiredLength = field.errors ?
+        field.errors['minlength']['requiredLength'] : 6;
+      return `Campo deve ter ${requiredLength} caracteres`;
     }
 
     return 'Campo inválido'
