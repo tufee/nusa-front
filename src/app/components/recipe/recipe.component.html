@@ -5,29 +5,35 @@
     <form [formGroup]="form" class="form-patient">
       <mat-form-field class="form-input">
         <mat-label>Paciente</mat-label>
-        <input matInput formControlName="paciente_id" />
+        <input matInput formControlName="paciente" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionText">
+          <mat-option *ngFor="let patient of patients" [value]="patient">
+            {{patient.nome}}
+          </mat-option>
+        </mat-autocomplete>
 
-        <mat-error *ngIf="form.get('paciente_id')?.invalid">
-          {{ formUtils.getErrorMessage(form, "paciente_id") }}
+        <mat-error *ngIf="form.get('paciente')?.invalid">
+          {{ formUtils.getErrorMessage(form, "paciente") }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-input">
         <mat-label>Medicamento</mat-label>
-        <input matInput formControlName="medicamento_id" />
+        <input matInput formControlName="medicamento" [matAutocomplete]="autoMedicine"/>
+         <mat-autocomplete #autoMedicine="matAutocomplete" [displayWith]="getOptionText">
+          <mat-option *ngFor="let medicine of medicines" [value]="medicine">
+            {{medicine.nome}}
+          </mat-option>
+        </mat-autocomplete>
 
-        <mat-error *ngIf="form.get('medicamento_id')?.invalid">
-          {{ formUtils.getErrorMessage(form, "medicamento_id") }}
+        <mat-error *ngIf="form.get('medicamento')?.invalid">
+          {{ formUtils.getErrorMessage(form, "medicamento") }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-input">
         <mat-label>Data da Prescrição</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="data_prescricao"
-        />
+        <input matInput [matDatepicker]="picker" formControlName="data_prescricao" />
 
         <mat-error *ngIf="form.get('data_prescricao')?.invalid">
           {{ formUtils.getErrorMessage(form, "data_prescricao") }}
@@ -40,12 +46,7 @@
     </form>
 
     <div class="button-container">
-      <button
-        mat-flat-button
-        class="form-button"
-        color="primary"
-        (click)="onSubmit()"
-      >
+      <button mat-flat-button class="form-button" color="primary" (click)="onSubmit()">
         Cadastrar Receita
       </button>
 
@@ -56,6 +57,6 @@
   </div>
 
   <div class="table-container">
-    <app-recipe-table></app-recipe-table>
+    <app-recipe-table [recipeData]="recipes"></app-recipe-table>
   </div>
 </div>
