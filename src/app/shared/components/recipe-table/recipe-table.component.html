@@ -1,17 +1,17 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="medico">
+<table mat-table [dataSource]="recipeData" class="mat-elevation-z8">
+  <ng-container matColumnDef="nome_medico">
     <th mat-header-cell *matHeaderCellDef>Medico</th>
-    <td mat-cell *matCellDef="let element">{{ element.medico }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.nome_medico }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="paciente">
+  <ng-container matColumnDef="nome_paciente">
     <th mat-header-cell *matHeaderCellDef>Paciente</th>
-    <td mat-cell *matCellDef="let element">{{ element.paciente }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.nome_paciente }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="medicamento">
+  <ng-container matColumnDef="nome_medicamento">
     <th mat-header-cell *matHeaderCellDef>Medicamento</th>
-    <td mat-cell *matCellDef="let element">{{ element.medicamento }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.nome_medicamento }}</td>
   </ng-container>
 
   <ng-container matColumnDef="data_prescricao">

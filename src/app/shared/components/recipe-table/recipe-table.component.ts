@@ -1,15 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { Recipe } from 'src/app/models/recipe';
-
-const mockRecipeData: Recipe[] = [
-  { medico: 'Carlos', paciente: 'Maria', medicamento: 'dipirona', data_prescricao: new Date() },
-  { medico: 'Sergio', paciente: 'Sheila', medicamento: 'dipirona', data_prescricao: new Date() },
-  { medico: 'Paulo', paciente: 'Carla', medicamento: 'dipirona', data_prescricao: new Date() },
-  { medico: 'Antonio', paciente: 'Bia', medicamento: 'dipirona', data_prescricao: new Date() },
-  { medico: 'Marcos', paciente: 'Joana', medicamento: 'dipirona', data_prescricao: new Date() },
-];
+import { RecipePayLoad } from 'src/app/models/recipe';
 
 @Component({
   selector: 'app-recipe-table',
@@ -20,13 +12,12 @@ const mockRecipeData: Recipe[] = [
 })
 
 export class RecipeTableComponent {
-  // @Input() recipeData: Recipe[];
+  @Input() recipeData: RecipePayLoad[];
 
-  // constructor() {
-  //   this.recipeData = [];
-  // }
+  constructor() {
+    this.recipeData = [];
+  }
 
-  displayedColumns: string[] = ['medico', 'paciente', 'medicamento', 'data_prescricao'];
-  dataSource = mockRecipeData;
+  displayedColumns: string[] = ['nome_medico', 'nome_paciente', 'nome_medicamento', 'data_prescricao'];
 }
 
