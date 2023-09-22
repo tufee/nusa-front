@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Login } from '../models/login';
-import { Observable } from 'rxjs';
 import { Router, UrlTree } from '@angular/router';
+import * as jose from 'jose';
+import { Observable } from 'rxjs';
+import { Login } from '../models/login';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -37,6 +38,18 @@ export class AuthenticateUserService {
   getToken(): string | null {
     const token = localStorage.getItem(TOKEN_KEY);
     return token ? token : null;
+  }
+
+
+  getUserId(): string | null {
+    const token = this.getToken();
+
+    if (token) {
+      const decodedToken: any = jose.decodeJwt(token);
+      return decodedToken.userId;
+    }
+
+    return null;
   }
 
   saveToken(token: string): void {
