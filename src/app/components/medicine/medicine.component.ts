@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { distinctUntilChanged, switchMap } from 'rxjs';
+import { distinctUntilChanged, switchMap, debounceTime } from 'rxjs';
 import { Medicine } from 'src/app/models/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { MedicineTableComponent } from 'src/app/shared/components/medicine-table/medicine-table.component';
@@ -62,9 +62,17 @@ export class MedicineComponent {
 
   ngOnInit(): void {
     this.searchForm.get('search')?.valueChanges.pipe(
+      debounceTime(1000),
       distinctUntilChanged(),
       switchMap((value: string) => this.service.getMedicines(value)),
     )
+      .subscribe(({
+        next: (value) => {
+          this.medicine = value
+        },
+      }));
+
+    this.service.getAllMedicine()
       .subscribe(({
         next: (value) => {
           this.medicine = value

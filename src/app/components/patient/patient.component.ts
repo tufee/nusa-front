@@ -79,6 +79,12 @@ export class PatientComponent {
           this.patient = value;
         },
       }))
+
+    this.service.getAllPatient().subscribe(({
+      next: (value) => {
+        this.patient = value;
+      },
+    }))
   }
 
   onSubmit() {
@@ -115,5 +121,3 @@ export class PatientComponent {
     }
   }
 }
-
-

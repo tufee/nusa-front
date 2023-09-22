@@ -126,6 +126,9 @@ export class RecipeComponent {
             'success'
           )
         },
+        next: () => {
+          this.ngOnInit()
+        }
       }));
     } else {
       this.formUtils.validateAllFormFields(this.form);
