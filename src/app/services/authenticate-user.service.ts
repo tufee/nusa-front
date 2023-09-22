@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import * as jose from 'jose';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 import { Login } from '../models/login';
 
 const TOKEN_KEY = 'auth-token';
@@ -12,7 +13,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AuthenticateUserService {
 
-  private readonly API = 'http://localhost:3000';
+  private readonly API = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,

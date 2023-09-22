@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 import { Recipe, RecipePayLoad, RecipeRequest } from '../models/recipe';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { Recipe, RecipePayLoad, RecipeRequest } from '../models/recipe';
 })
 export class RecipeService {
 
-  private readonly API = 'http://localhost:3000';
+  private readonly API = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 

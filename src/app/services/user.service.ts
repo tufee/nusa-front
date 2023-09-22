@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 import { Doctor } from '../models/doctor';
 import { Patient } from '../models/patient';
 
@@ -8,7 +9,7 @@ import { Patient } from '../models/patient';
 })
 export class UserService {
 
-  private readonly API = 'http://localhost:3000';
+  private readonly API = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
